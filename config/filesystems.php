@@ -44,6 +44,23 @@ return [
             'throw' => false,
         ],
 
+        'customer' => [
+            'driver' => 'local',
+            'root' => public_path("upload/customer"),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'room' => [
+            'driver' => 'local',
+            'root' => public_path("upload/room"),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
