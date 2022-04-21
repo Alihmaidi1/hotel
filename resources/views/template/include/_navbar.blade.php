@@ -24,19 +24,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="dropdown ms-auto me-4" id="refreshThisDropdown">
-                <div class="dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+
+                <div class="dropdown-toggle" id="dropdownMenuButton2" data-bs-target="#target2" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="btn position-relative bg-icon">
                         <i class="fas fa-bell">
-                            {{-- @if (auth()->user()->unreadNotifications->count() > 0)
-                                <span
-                                    class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                    {{ auth()->user()->unreadNotifications->count() }}
-                                    <span class="visually-hidden">unread messages</span></span>
-                            @endif --}}
+                                <span class="position-absolute mt-1 top-0 start-100 translate-middle badge rounded-pill bg-danger">+<span id="notification_count">{{ App\Models\notification::where("status","unread")->count() }}</span></span>
                         </i>
                     </div>
                 </div>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                <ul id="target2" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
                     <div class="row">
                         <div class="col-lg-12">
                             <li role="presentation">
@@ -46,24 +42,24 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <ul class="timeline timeline-icons timeline-sm p-2"
+                            <ul  id="notification_list" class="timeline timeline-icons timeline-sm p-2"
                                 style="width:210px; max-height:300px; overflow:auto">
-                                 {{-- @forelse (auth()->user()->unreadNotifications as $notification)
-                                    <li>
-                                        <p>
-                                            {{ $notification->data['message'] }}
-                                            <a href="{{ route('notification.routeTo',['id' => $notification->id]) }}">here</a>
-                                            <span class="timeline-icon" style="margin-left: -1px; margin-top:-3px"><i
-                                                    class="fa fa-cash-register"></i></span>
-                                            <span
-                                                class="timeline-date">{{ $notification->created_at->diffForHumans() }}</span>
-                                        </p>
-                                    </li>
-                                @empty
-                                    <p class="text-center">
-                                        There's no new notification
+                                @forelse (App\Models\notification::where("status","unread")->get() as $notification)
+                                <li>
+                                    <p>
+                                        {{ $notification->message }}
+                                        <span class="timeline-icon" style="margin-left: -1px; margin-top:-3px"><i
+                                                class="fa fa-cash-register"></i></span>
+                                        <span
+                                            class="timeline-date">{{ $notification->created_at->diffForHumans() }}</span>
                                     </p>
-                                @endforelse  --}}
+                                </li>
+                            @empty
+                                <p class="text-center">
+                                    There's no new notification
+                                </p>
+                            @endforelse
+
                             </ul>
                         </div>
                     </div>
@@ -84,20 +80,17 @@
                     </div>
                 </ul>
 
+
+
             </div>
+
             <div class="dropdown">
                 <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="" class="rounded-circle img-thumbnail"
                         style="cursor: pointer" width="40" height="40" alt="">
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item"
-                            href="">Profil</a>
-                    </li>
-                    <li><a class="dropdown-item" href="#">Activity</a></li>
-                    <li><a class="dropdown-item" href="#">Setting</a></li>
                     <li>
-                        <hr class="dropdown-divider">
                     </li>
                     <form action="/logout" method="POST">
                         @csrf

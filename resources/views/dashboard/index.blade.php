@@ -1,7 +1,7 @@
 @extends('template.master')
 @section('title', 'Dashboard')
 @section('head')
-    {{-- <link rel="stylesheet" href="{{ asset('style/css/admin.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('style/css/admin.css') }}">
 @endsection
 @section('content')
     <div id="dashboard">
@@ -80,7 +80,7 @@
                                                     <span>
                                                     {{ $transaction->status }}
                                                     </span>
-                                                    
+
                                                 </td>
                                             </tr>
                                         @empty
@@ -134,8 +134,8 @@
                                 </div>
                                 <div class="position-relative mb-4">
                                 <canvas id="barChart"></canvas>
-                                  
-                                </div>                                
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,43 @@
             </div>
         </div>
     </div>
-    
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        let id={!! auth()->user()->id !!}
+        Echo.private(`message`)
+            .listen('payment', (e) => {
+
+                if(id!=e.id){
+
+                    let notification_count=document.getElementById('notification_count');
+                    let count=parseInt(notification_count.innerHTML)+1;
+                    console.log(count)
+                    console.log(e)
+                    notification_count.innerHTML=count;
+                    let notification_list=document.getElementById('notification_list');
+                    let li=`
+                    <li>
+                                    <p>
+                                        ${ e.messages }
+                                        <span class="timeline-icon" style="margin-left: -1px; margin-top:-3px"><i
+                                                class="fa fa-cash-register"></i></span>
+                                        <span
+                                            class="timeline-date">${e.created_at}</span>
+                                    </p>
+                                </li>
+                    `;
+
+                                console.log(li)
+
+                                notification_list.innerHTML+=li
+                }
+
+
+
+
+            });
+    </script>
+
 @endsection
 @section('footer')
 <script src="{{ asset('style/js/jquery.js') }}"></script>

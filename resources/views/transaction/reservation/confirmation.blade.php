@@ -77,7 +77,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="total_price" name="total_price"
                                                 placeholder="col-form-label"
-                                                value="{{ $days*$room->price }}"
+                                                value="{{ differce_date($from,$to)*$room->price }}"
                                                 readonly>
                                         </div>
                                     </div>

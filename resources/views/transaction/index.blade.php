@@ -63,7 +63,7 @@
                                         <td>{{ $transaction->check_in }}</td>
                                         <td>{{ $transaction->check_out }}</td>
                                         <td>{{ differce_date($transaction->check_in,$transaction->check_out) }}</td>
-                                         <td>{{ $transaction->total }}</td>   
+                                         <td>{{ $transaction->total }}</td>
                                         <td>{{ sum_payment($transaction->payments) }}</td>
                                         <td>{{ $transaction->total-sum_payment($transaction->payments) }}</td>
                                         <td>
@@ -122,20 +122,17 @@
                                     <td>{{ $transaction->id }}</td>
                                     <td>{{ $transaction->name }}</td>
                                     <td>{{ $transaction->number }}</td>
-                                    <td>{{ Helper::dateFormat($transaction->check_in) }}</td>
-                                    <td>{{ Helper::dateFormat($transaction->check_out) }}</td>
-                                    <td>{{ $transaction->getDateDifferenceWithPlural($transaction->check_in, $transaction->check_out) }}
+                                    <td>{{ $transaction->check_in }}</td>
+                                    <td>{{ $transaction->check_out }}</td>
+                                    <td>{{ $transaction->check_in}}
                                     </td>
-                                    <td>{{ Helper::convertToRupiah($transaction->getTotalPrice()) }}
-                                    </td>
+                                    <td>                                    </td>
                                     <td>
-                                        {{ Helper::convertToRupiah($transaction->getTotalPayment()) }}
                                     </td>
-                                    <td>{{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}
-                                    </td>
+                                    <td></td>
                                     <td>
-                                        <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0 {{$transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment() <= 0 ? 'disabled' : ''}}"
-                                            href="{{ route('transaction.payment.create', ['transaction' => $transaction->id]) }}"
+                                        <a class="btn btn-light btn-sm rounded shadow-sm border p-1 m-0 "
+                                            href=""
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Pay">
                                             <i class="fas fa-money-bill-wave-alt"></i>
                                         </a>
